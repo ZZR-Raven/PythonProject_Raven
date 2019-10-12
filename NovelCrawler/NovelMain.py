@@ -7,12 +7,17 @@ from lxml import etree
 from scrapy.selector import Selector
 
 
+# #   user check  ##########################    
+# ch_name = '龙族前传'
+# ch_xpath = '/html/body/div[@align="center"]/table/tr/td/p/text()'
+# ch_url = 'https://www.kanunu8.com/book3/7750/'
+# #   user check  ##########################    
+
 #   user check  ##########################    
 ch_name = '龙族前传'
 ch_xpath = '/html/body/div[@align="center"]/table/tr/td/p/text()'
 ch_url = 'https://www.kanunu8.com/book3/7750/'
-#   user check  ##########################    
-
+#   user check  ##########################   
 
 #   连接redis
 pool = redis.ConnectionPool() 
@@ -33,8 +38,11 @@ def get_charset(byte_code):
     charset_dict = chardet.detect(byte_code)
     return charset_dict['encoding']
 
+ch_count = 0
 def TextGet_OneTXT():
     print('start!')
+    global ch_count     #函数内引用全局变量要加global关键字
+    ch_count = ch_count + 1
     url = url_list_Byte2Str()
     ch_byte = requests.get(url).content
     charset = get_charset(ch_byte)
@@ -66,7 +74,6 @@ def Get_ChUrl():
     for url in url_list:
         real_url = ch_url+url
         client.lpush('url_list',real_url)    
-
 
 
 
