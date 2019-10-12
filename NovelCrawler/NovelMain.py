@@ -9,14 +9,16 @@ from scrapy.selector import Selector
 
 # #   user check  ##########################    
 # ch_name = '龙族前传'
+# url_xpath = //tbody/tr/td/a/@href
 # ch_xpath = '/html/body/div[@align="center"]/table/tr/td/p/text()'
 # ch_url = 'https://www.kanunu8.com/book3/7750/'
 # #   user check  ##########################    
 
 #   user check  ##########################    
-ch_name = '龙族前传'
-ch_xpath = '/html/body/div[@align="center"]/table/tr/td/p/text()'
-ch_url = 'https://www.kanunu8.com/book3/7750/'
+ch_name = '诛仙'
+url_xpath = '//*[@id="main"]/div[@class="book"]/dl/dd/a/@href'
+ch_xpath = '/html/body/div[@id="main"]/p/text()'
+ch_url = 'https://www.tianyabooks.com/net/zhuxian/'
 #   user check  ##########################   
 
 #   连接redis
@@ -30,9 +32,6 @@ def url_list_Byte2Str():
     url_b = client.rpop('url_list')
     url_s = str(url_b,encoding='utf-8')
     return url_s
-    # ch_byte = requests.get(url_s).content
-    # charset_dict = chardet.detect(ch_byte)
-    # charset = charset_dict['encoding']
 
 def get_charset(byte_code):
     charset_dict = chardet.detect(byte_code)
@@ -40,9 +39,9 @@ def get_charset(byte_code):
 
 ch_count = 0
 def TextGet_OneTXT():
-    print('start!')
     global ch_count     #函数内引用全局变量要加global关键字
     ch_count = ch_count + 1
+    print('start ch%s!'%ch_count)
     url = url_list_Byte2Str()
     ch_byte = requests.get(url).content
     charset = get_charset(ch_byte)
@@ -52,6 +51,7 @@ def TextGet_OneTXT():
     ch_pre = selector.xpath(ch_xpath)
     with open(ch_name + '.txt','a',encoding='utf-8') as t1:  
         t1.writelines(ch_pre)
+        print('ch%s done!'%ch_count)
 
 
 def Check_RedisList():
@@ -66,9 +66,11 @@ def Check_RedisList():
 
 def Get_ChUrl():
     #   爬取小说每章节url
-    ori_code = requests.get(ch_url).content.decode(encoding = 'gb2312')
+    ori_code = requests.get(ch_url).content.decode(encoding = 'gb2312',errors = 'ignore')
+    with open('code.html','w',encoding='utf-8') as test:  
+        test.write(ori_code)
     selector = etree.HTML(ori_code)
-    url_list = selector.xpath('//tbody/tr/td/a/@href')
+    url_list = selector.xpath(url_xpath)
     url_list.pop(0)     #去掉第一个无用网址
     #   将url补充成html路径并放入redis的list中
     for url in url_list:
