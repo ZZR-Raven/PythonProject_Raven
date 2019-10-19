@@ -10,8 +10,9 @@ with open('title_post.txt','w',encoding='utf-8') as txt1:
 
 real_url = []
 # '/html/body/div[10]/div[1]/div[2]/ul/li[1]'
-ch_url = re.findall('/html/body/div[10]/div[1]/div[2]/a href="(.*?)">',str(title_code),re.S)
-#print(ch_url)      这里是每章的url
+'/html/body/div[@class=Layout no_h]/div[@class=Con jj_pl]/div[@class=list_box]/ul/li/'
+ch_url = re.findall('a href="(.*?)">',str(title_code),re.S)
+print(len(ch_url))      #这里是每章的url
 # ch_name = re.findall('.html">(.*?)</a></dd><dd><a',str(title_code),re.S)
 #print(ch_name)     这里是每章的名字
 for url_test in ch_url:
