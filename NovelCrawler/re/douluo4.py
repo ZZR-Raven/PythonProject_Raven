@@ -32,7 +32,7 @@ while (num <= len(real_url)):
     print("decode start")
     code_str = code_bytes.decode("UTF-8","ignore")
     # ch = ch_name[num]
-    ar = re.findall('&nbsp;&nbsp;&nbsp;&nbsp;(.*?)<p>',code_str,re.S)
+    ar = re.findall('&nbsp;&nbsp;&nbsp;&nbsp;(.*?)<br',code_str,re.S)
     with open('终极斗罗.txt','a',encoding='utf-8') as txt2:  
         txt2.writelines(ar) 
     print('第%d章打印完成'%num)
