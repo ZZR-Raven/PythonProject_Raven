@@ -11,7 +11,6 @@ with open('终极斗罗.txt','w',encoding='utf-8') as temp:  #
     temp.truncate()
 
 real_url = []
-'/html/body/div[@class=Layout no_h]/div[@class=Con jj_pl]/div[@class=list_box]/ul/li/'
 ch_url = re.findall('<a href="(.*?)">第',str(title_code),re.S)
 ch_url.pop(0)
 ch_url.pop(0)
