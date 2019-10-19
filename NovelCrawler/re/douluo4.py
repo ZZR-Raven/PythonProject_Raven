@@ -8,6 +8,10 @@ title_code = requests.post('http://www.yunxs.com/canglanjue/').content.decode()
 # with open('title_post.txt','w',encoding='utf-8') as txt1:
 #    txt1.write(title_code)
 
+#   先清空目标txt文件防止被重复写入
+with open('终极斗罗.txt','w',encoding='utf-8') as temp:  #
+    temp.truncate()
+
 real_url = []
 # '/html/body/div[10]/div[1]/div[2]/ul/li[1]'
 '/html/body/div[@class=Layout no_h]/div[@class=Con jj_pl]/div[@class=list_box]/ul/li/'
@@ -32,7 +36,7 @@ while (num <= len(real_url)):
     print("decode start")
     code_str = code_bytes.decode("UTF-8","ignore")
     # ch = ch_name[num]
-    ar = re.findall('&nbsp;&nbsp;&nbsp;&nbsp;(.*?)<br',code_str,re.S)
+    ar = re.findall('&nbsp;&nbsp;&nbsp;&nbsp;(.*?)<br />',code_str,re.S)
     with open('终极斗罗.txt','a',encoding='utf-8') as txt2:  
         txt2.writelines(ar) 
     print('第%d章打印完成'%num)
