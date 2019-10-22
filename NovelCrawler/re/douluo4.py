@@ -10,7 +10,7 @@ import requests
 # with open('终极斗罗.txt','w',encoding='utf-8') as temp:  #
 #     temp.truncate()
 
-real_url = []
+# real_url = []
 # ch_url = re.findall('<a href="(.*?)">第',str(title_code),re.S)
 # ch_url.pop(0)
 # ch_url.pop(0)
@@ -57,9 +57,9 @@ class re_crawler(object):
 
     def get_article(self):
         self.num = 0
-        while (self.num < len(real_url)):
+        while (self.num < len(self.real_url)):
             print("ch%d request start"%self.num)
-            code_html = requests.get(real_url[self.num])
+            code_html = requests.get(self.real_url[self.num])
             code_bytes = code_html.content
             code_str = code_bytes.decode("UTF-8","ignore")
             ar = re.findall('&nbsp;&nbsp;&nbsp;&nbsp;(.*?)<br />',code_str,re.S)
