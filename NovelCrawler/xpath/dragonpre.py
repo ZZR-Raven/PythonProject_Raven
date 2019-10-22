@@ -22,10 +22,11 @@ import time
 #   user check  ##########################   
 
 class xpath_crawler(object):
-    bookname = '诛仙'
-    url_xpath = '//*[@id="main"]/div[@class="book"]/dl/dd/a/@href'
-    ch_xpath = '/html/body/div[@id="main"]/p/text()'
-    ch_url = 'https://www.tianyabooks.com/net/zhuxian/'
+
+    bookname = '龙族前传'
+    url_xpath = '//tbody/tr/td/a/@href'
+    ch_xpath = '/html/body/div[@align="center"]/table/tr/td/p/text()'
+    ch_url = 'https://www.kanunu8.com/book3/7750/'
 
     def __init__(self):
         self.pool = redis.ConnectionPool() 
@@ -81,8 +82,8 @@ class xpath_crawler(object):
     def Get_ChUrl(self):
         #   爬取小说每章节url
         self.ori_code = requests.get(self.ch_url).content.decode(encoding = 'gb2312',errors = 'ignore')
-        with open('code.html','w',encoding='utf-8') as test:  
-            test.write(self.ori_code)
+        # with open('code.html','w',encoding='utf-8') as test:  
+        #     test.write(self.ori_code)
         self.selector = etree.HTML(self.ori_code)
         self.url_list = self.selector.xpath(self.url_xpath)
         self.url_list.pop(0)     #去掉第一个无用网址
@@ -91,63 +92,6 @@ class xpath_crawler(object):
             real_url = self.ch_url+url
             self.client.lpush('url_list',real_url)    
             
-
-#   连接redis
-# pool = redis.ConnectionPool() 
-# client = redis.Redis(connection_pool=pool)
-#   先清空目标txt文件防止被重复写入
-# with open(ch_name+'.txt','w',encoding='utf-8') as temp:  
-#     temp.truncate()
-
-# def url_list_Byte2Str():
-#     url_b = client.rpop('url_list')
-#     url_s = str(url_b,encoding='utf-8')
-#     return url_s
-
-    # def get_charset(byte_code):
-    #     charset_dict = chardet.detect(byte_code)
-    #     return charset_dict['encoding']
-
-    # ch_count = 0
-    # def TextGet_OneTXT():
-    #     global ch_count     #函数内引用全局变量要加global关键字
-    #     ch_count = ch_count + 1
-    #     print('start ch%s!'%ch_count)
-    #     url = url_list_Byte2Str()
-    #     ch_byte = requests.get(url).content
-    #     charset = get_charset(ch_byte)
-    #     ch_code = ch_byte.decode(encoding = charset,errors = 'ignore')
-    #     selector = etree.HTML(ch_code)
-    #     # 要从源码看，chrome直接复制xpath可能有多余的误导标签
-    #     ch_pre = selector.xpath(ch_xpath)
-    #     with open(ch_name + '.txt','a',encoding='utf-8') as t1:  
-    #         t1.writelines(ch_pre)
-    #         print('ch%s done!'%ch_count)
-
-
-    # def Check_RedisList():
-    #     #确保名为url_list的redis list不存在
-    #     if client.exists('url_list') == True:
-    #         client.delete('url_list')
-    #         print('the key has been deleted')
-    #     else:
-    #         print('the key isn\'t exists')
-
-    
-
-    # def Get_ChUrl(self):
-    #     #   爬取小说每章节url
-    #     ori_code = requests.get(ch_url).content.decode(encoding = 'gb2312',errors = 'ignore')
-    #     with open('code.html','w',encoding='utf-8') as test:  
-    #         test.write(ori_code)
-    #     selector = etree.HTML(ori_code)
-    #     url_list = selector.xpath(url_xpath)
-    #     url_list.pop(0)     #去掉第一个无用网址
-    #     #   将url补充成html路径并放入redis的list中
-    #     for url in url_list:
-    #         real_url = self.ch_url+url
-    #         self.client.lpush('url_list',real_url)    
-
 
 
 if __name__ == '__main__':
@@ -159,5 +103,5 @@ if __name__ == '__main__':
     av_time = time_used/(xpath_user.ch_count)
     print('平均每章用时%fs'%av_time)
 
-# 本次爬取共用时303s ，共258章
-# 平均每章用时1.175323s
+# 本次爬取共用时12s ，共11章
+# 平均每章用时1.163830s
