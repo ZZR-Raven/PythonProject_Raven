@@ -56,4 +56,5 @@ if __name__ == '__main__':
     print('本次爬取共用时%ds'%time_used,'，共%d章'%len(re_user.real_url))
     # 本次爬取共用时279s ，共635章
     av_time = time_used/(len(re_user.real_url))
-    print('平均每章用时%d'%av_time)
+    print('平均每章用时%f'%av_time)
+    # 平均每章用时0.439370
