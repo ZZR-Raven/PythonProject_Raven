@@ -7,19 +7,6 @@ from lxml import etree
 from scrapy.selector import Selector
 import time
 
-# #   user check  ##########################    
-# ch_name = '龙族前传'
-# url_xpath = //tbody/tr/td/a/@href
-# ch_xpath = '/html/body/div[@align="center"]/table/tr/td/p/text()'
-# ch_url = 'https://www.kanunu8.com/book3/7750/'
-# #   user check  ##########################    
-
-#   user check  ##########################    
-# ch_name = '诛仙'
-# url_xpath = '//*[@id="main"]/div[@class="book"]/dl/dd/a/@href'
-# ch_xpath = '/html/body/div[@id="main"]/p/text()'
-# ch_url = 'https://www.tianyabooks.com/net/zhuxian/'
-#   user check  ##########################   
 
 class xpath_crawler(object):
 
