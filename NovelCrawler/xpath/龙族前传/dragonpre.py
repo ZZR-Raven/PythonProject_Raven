@@ -7,6 +7,7 @@ from lxml import etree
 from scrapy.selector import Selector
 import time
 import re
+from tqdm import tqdm
 
 class xpath_crawler(object):
 
@@ -48,6 +49,7 @@ class xpath_crawler(object):
         # 要从源码看，chrome直接复制xpath可能有多余的误导标签
         self.ch_pre = selector.xpath(self.ch_xpath)
         outfp = open(self.bookname + '.txt', "a", encoding='utf-8') # 生成没有空行的文件
+        #用于解决xpath带\r\n\t一堆空行的问题
         try:
             lines = list(self.ch_pre)
             for li in lines:
@@ -66,6 +68,7 @@ class xpath_crawler(object):
 
     def user_call(self):
         self.Check_RedisList()
+        self.cleardoc()
         self.Get_ChUrl()
         while self.client.exists('url_list') == True:
             self.TextGet_OneTXT()
