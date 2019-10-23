@@ -40,7 +40,7 @@ class xpath_crawler(object):
     ch_count = 0
     def TextGet_OneTXT(self):
         self.ch_count = self.ch_count + 1
-        print('start ch%s!'%(self.ch_count))
+        # print('start ch%s!'%(self.ch_count))
         url = self.url_list_Byte2Str()
         ch_byte = requests.get(url).content
         charset = self.get_charset(ch_byte)
@@ -66,11 +66,20 @@ class xpath_crawler(object):
         else:
             print('the key isn\'t exists')
 
+    def get_len(self):
+        if self.client.exists('url_list') == True:
+            self.listlen = self.client.llen('url_list')
+
+
     def user_call(self):
         self.Check_RedisList()
         self.cleardoc()
         self.Get_ChUrl()
-        while self.client.exists('url_list') == True:
+        # while self.client.exists('url_list') == True:
+            # self.TextGet_OneTXT()
+        self.get_len()
+        self.pbar = tqdm(range(self.listlen))
+        for i in self.pbar:
             self.TextGet_OneTXT()
         print('all done!')
 
