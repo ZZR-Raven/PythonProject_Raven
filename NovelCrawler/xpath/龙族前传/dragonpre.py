@@ -78,9 +78,12 @@ class xpath_crawler(object):
         # while self.client.exists('url_list') == True:
             # self.TextGet_OneTXT()
         self.get_len()
-        self.pbar = tqdm(range(self.listlen))
-        for i in self.pbar:
+        # with tqdm(range(self.listlen)) as self.pbar:
+            # self.pbar.close()
+        for self.ch in tqdm(range(self.listlen)):
             self.TextGet_OneTXT()
+            # self.pbar.update(1)
+
         print('all done!')
 
     def Get_ChUrl(self):
