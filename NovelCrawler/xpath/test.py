@@ -14,5 +14,5 @@ with tqdm(total=100) as pbar:
 #         print("*",end='',sep='')
 #     time.sleep(0.01)
 
-#去其他设备试试
+
         
