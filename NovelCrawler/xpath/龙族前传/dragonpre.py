@@ -7,7 +7,7 @@ from lxml import etree
 from scrapy.selector import Selector
 import time
 import re
-import tqdmRaven
+from Raven import tqdmRaven
 
 class xpath_crawler(object):
 
