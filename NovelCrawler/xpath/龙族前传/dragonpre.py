@@ -38,9 +38,9 @@ class xpath_crawler(object):
         self.charset_dict = chardet.detect(byte_code)
         return self.charset_dict['encoding']
 
-    ch_count = 0
+    # ch_count = 0
     def TextGet_OneTXT(self):
-        self.ch_count = self.ch_count + 1
+        # self.ch_count = self.ch_count + 1
         # print('start ch%s!'%(self.ch_count))
         url = self.url_list_Byte2Str()
         ch_byte = requests.get(url).content
@@ -51,13 +51,13 @@ class xpath_crawler(object):
         self.ch_pre = selector.xpath(self.ch_xpath)
         outfp = open(self.bookname + '.txt', "a", encoding='utf-8') # 生成没有空行的文件
         #用于解决xpath带\r\n\t一堆空行的问题
-        try:
-            lines = list(self.ch_pre)
-            for li in lines:
-                if li.split():
-                    outfp.writelines(li)
-        finally :
-            outfp.close()
+        # try:
+        lines = list(self.ch_pre)
+        for li in lines:
+            if li.split():
+                outfp.writelines(li)
+        # finally :
+        #     outfp.close()
 
     def Check_RedisList(self):
         #确保名为url_list的redis list不存在
@@ -80,7 +80,6 @@ class xpath_crawler(object):
             # self.TextGet_OneTXT()
         self.get_len()
         tqdmRaven.tqdm_usercall_raven(self.listlen,self.TextGet_OneTXT)
-
         print('all done!')
 
     def Get_ChUrl(self):
@@ -103,8 +102,8 @@ if __name__ == '__main__':
     time_start = time.time()
     xpath_user.user_call()
     time_used = time.time() - time_start
-    print('本次爬取共用时%ds'%time_used,'，共%d章'%(xpath_user.ch_count))
-    av_time = time_used/(xpath_user.ch_count)
+    print('本次爬取共用时%ds'%time_used,'，共%d章'%(xpath_user.listlen))
+    av_time = time_used/(xpath_user.listlen)
     print('平均每章用时%fs'%av_time)
 
 # 本次爬取共用时12s ，共11章
