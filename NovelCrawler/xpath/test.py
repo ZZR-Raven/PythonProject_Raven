@@ -3,9 +3,10 @@ import time
 
 tqdm(ascii=True)
 try:
-    with trange(100000) as t:
+    with trange(10,ncols=75) as t:
         for i in t:
             # print('hh')
+            time.sleep(1)
             pass
 except KeyboardInterrupt:
     t.close()
