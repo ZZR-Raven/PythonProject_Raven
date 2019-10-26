@@ -1,4 +1,4 @@
-import scrapy
+﻿import scrapy
 import lxml
 import requests
 import redis
@@ -11,10 +11,18 @@ from Raven import tqdmRaven
 
 class xpath_crawler(object):
 
-    bookname = '龙族前传'
-    url_xpath = '//tbody/tr/td/a/@href'
-    ch_xpath = '/html/body/div[@align="center"]/table/tr/td/p/text()'
-    ch_url = 'https://www.kanunu8.com/book3/7750/'
+    #---------------------------- 需要手动修改的参数 ----------------------------
+    #---------------------------- 示例 -----------------------------------------
+    # bookname = '龙族前传'
+    # url_xpath = '//tbody/tr/td/a/@href'
+    # ch_xpath = '/html/body/div[@align="center"]/table/tr/td/p/text()'
+    # ch_url = 'https://www.kanunu8.com/book3/7750/'
+
+    bookname = ''
+    url_xpath = ''
+    ch_xpath = ''
+    ch_url = ''
+
 
     def __init__(self):
         self.pool = redis.ConnectionPool() 
@@ -97,6 +105,3 @@ if __name__ == '__main__':
     print('本次爬取共用时%ds'%time_used,'，共%d章'%(xpath_user.listlen))
     av_time = time_used/(xpath_user.listlen)
     print('平均每章用时%fs'%av_time)
-
-# 本次爬取共用时12s ，共11章
-# 平均每章用时1.163830s
