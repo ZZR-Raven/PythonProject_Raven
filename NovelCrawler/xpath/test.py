@@ -1,11 +1,18 @@
-from tqdm import tqdm
+from tqdm import tqdm,trange
 import time
 
-with tqdm(total=100) as pbar:
-    for i in (range(100)):
-        # tqdm.write("wtf")
-        time.sleep(1)
-        pbar.update(1)
+tqdm(ascii=True)
+try:
+    with trange(100000) as t:
+        for i in t:
+            # print('hh')
+            pass
+except KeyboardInterrupt:
+    t.close()
+    raise
+t.close()
+    
+
 
 # tqdm.close()
 # for i in range(100):

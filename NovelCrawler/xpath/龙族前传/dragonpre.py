@@ -19,6 +19,7 @@ class xpath_crawler(object):
     def __init__(self):
         self.pool = redis.ConnectionPool() 
         self.client = redis.Redis(connection_pool=self.pool)
+        tqdm(ascii=True)
 
     # def connect_redis(self):
         # self.pool = redis.ConnectionPool() 
@@ -83,7 +84,6 @@ class xpath_crawler(object):
         for self.ch in tqdm(range(self.listlen)):
             self.TextGet_OneTXT()
             # self.pbar.update(1)
-
         print('all done!')
 
     def Get_ChUrl(self):
