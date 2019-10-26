@@ -7,7 +7,7 @@ from lxml import etree
 from scrapy.selector import Selector
 import time
 import re
-from tqdm import tqdm
+import tqdmRaven
 
 class xpath_crawler(object):
 
@@ -19,7 +19,7 @@ class xpath_crawler(object):
     def __init__(self):
         self.pool = redis.ConnectionPool() 
         self.client = redis.Redis(connection_pool=self.pool)
-        tqdm(ascii=True)
+
 
     # def connect_redis(self):
         # self.pool = redis.ConnectionPool() 
@@ -79,11 +79,8 @@ class xpath_crawler(object):
         # while self.client.exists('url_list') == True:
             # self.TextGet_OneTXT()
         self.get_len()
-        # with tqdm(range(self.listlen)) as self.pbar:
-            # self.pbar.close()
-        for self.ch in tqdm(range(self.listlen)):
-            self.TextGet_OneTXT()
-            # self.pbar.update(1)
+        tqdmRaven.tqdm_usercall_raven(self.listlen,self.TextGet_OneTXT)
+
         print('all done!')
 
     def Get_ChUrl(self):
