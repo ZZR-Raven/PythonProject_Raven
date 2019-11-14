@@ -39,7 +39,7 @@ class re_crawler(object):
         code_html = requests.get(self.real_url[self.num])
         code_bytes = code_html.content
         code_str = code_bytes.decode("UTF-8","ignore")
-        ar = re.findall('&nbsp;&nbsp;&nbsp;&nbsp;(.*?)<br />',code_str,re.S)
+        ar = re.findall('&nbsp;&nbsp;&nbsp;&nbsp;(.*?)<br />',code_str)
         with open(self.bookname + '.txt','a',encoding='utf-8') as txt2:  
             txt2.writelines(ar) 
             # print('第%d章打印完成'%self.num)
