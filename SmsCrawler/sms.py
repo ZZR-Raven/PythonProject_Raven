@@ -7,20 +7,21 @@ from scrapy.selector import Selector
 import scrapy
 import lxml
 
-
+# 创建环境
 smsurl = 'http://www.scut.edu.cn/sms/'
 driver = webdriver.Chrome()
 driver.get(smsurl)
 input('请手动输入账号密码')
 
+# 拿到每个人的id号
 id_code = driver.get('http://xsgl.7i5q.cas.scut.edu.cn/sms2/student/evaluation/intellectualList.jsp')
 id_source = driver.page_source
-print(type(id_code))
+print(id_source)
 id_list = []
 id_list = re.findall('evaluationId=(.*?)&amp;classYearId=13',id_source,re.S)
 print(id_list)
-# id_list = ['4461', '2911', '10233', '10245', '10246', '10249', '10254', '10257', '7490', '10283', '10285', '10298', '10300', '10303', '10305', '10307', '10334', '10337', '10343', '10348', '10362', '10369', '949', '10379', '10392', '6552', '10400', '10407', '4841', '1319', '10431', '3422', '10450', '1024', '6577', '3375', '10475', '10478', '10723', '6563', '4850', '10893', '10900']
 
+# 获取源代码
 url1 = 'http://xsgl.7i5q.cas.scut.edu.cn/sms2/student/module/evaluation/studentIntellectualDetail.jsp?evaluationId='
 url2 = '&classYearId=13'
 for id in id_list:
