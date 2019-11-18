@@ -57,10 +57,10 @@ if __name__ == '__main__':
     av_time = time_used/(len(id_list))
     print('平均每人用时%fs'%av_time)
 
-        # with open(id+'.txt','w',encoding='utf-8',errors = 'ignore') as info :
-        #     info.write(info_source)
+    with open(id+'.txt','w',encoding='utf-8',errors = 'ignore') as info :
+        info.write(info_source)
         
-
+ 
 
 
 
