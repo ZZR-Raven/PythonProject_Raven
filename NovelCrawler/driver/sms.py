@@ -6,6 +6,7 @@ from lxml import etree
 from scrapy.selector import Selector
 import scrapy
 import lxml
+from tqdm import tqdm,trange
 
 
 class driver_crawler(object):
@@ -38,12 +39,20 @@ if __name__ == '__main__':
     id_source = user_driver.driver.page_source
     id_list = []
     id_list = re.findall(id_re,id_source,re.S)
-    for id in id_list:
-        url = url3_1 + id + url3_2
-        info_code = user_driver.driver.get(url)
-        info_source = user_driver.driver.page_source
-        with open(id+'.txt','w',encoding='utf-8',errors = 'ignore') as info :
-            info.write(info_source)
+    idnum = 0
+    try:
+        with trange(len(id_list),ncols=75) as t:    
+            for idnum in t:
+                url = url3_1 + id_list[idnum] + url3_2
+                info_code = user_driver.driver.get(url)
+                info_source = user_driver.driver.page_source
+    except KeyboardInterrupt:
+        t.close()
+        raise
+    t.close()
+
+        # with open(id+'.txt','w',encoding='utf-8',errors = 'ignore') as info :
+        #     info.write(info_source)
         
 
 
